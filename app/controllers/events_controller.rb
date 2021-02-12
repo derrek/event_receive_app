@@ -19,11 +19,6 @@ class EventsController < ApplicationController
     @event.save
 
 
-    
-      # msg = {:status => "ok", :message => "sucess"}
-      # msg = {'message' => 'Saved Successful'}
-      # render :json => msg
-      # render json: {status: :created}
 
     if @event[:name] != nil && @event[:event_type] != nil
       if @event[:event_type] != "click" || @event[:event_type] != "view" || @event[:event_type] != "edit"
@@ -68,6 +63,5 @@ class EventsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def event_params
       params.require(:event).permit(:name, :event_type, :at, :button_color)
-      # params.require(:event).require()
     end
 end

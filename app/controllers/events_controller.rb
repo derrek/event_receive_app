@@ -21,11 +21,11 @@ class EventsController < ApplicationController
 
 
     if @event[:name] != nil && @event[:event_type] != nil
-      if @event[:event_type] != "click" || @event[:event_type] != "view" || @event[:event_type] != "edit"
+      if @event[:event_type] == "click" || @event[:event_type] == "view" || @event[:event_type] == "edit"
+        render json: @event, status: :created, location: @event
+      else 
         @event.errors.add(:event_type, "#{@event.event_type} is not a valid event type")
         render json: @event.errors, status: :unprocessable_entity
-      else 
-        render json: @event, status: :created, location: @event
       end
     else
       if @event[:event_type] == nil

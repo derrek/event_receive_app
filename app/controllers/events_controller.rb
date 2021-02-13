@@ -16,26 +16,9 @@ class EventsController < ApplicationController
   # POST /events
   def create
     @event = Event.new(event_params)
-    @event.save
-
-
-
-    if @event[:name] != nil && @event[:event_type] != nil
-      if @event[:event_type] == "click" || @event[:event_type] == "view" || @event[:event_type] == "edit"
-        render json: @event, status: :created, location: @event
-      else 
-        @event.errors.add(:event_type, "#{@event.event_type} is not a valid event type")
-        render json: @event.errors, status: :unprocessable_entity
-      end
+    if @event.save
+      render json: @event, status: :created, location: @event
     else
-      if @event[:event_type] == nil
-        @event.errors.add(:event_type, "must be given")
-      else
-      end
-      if @event[:name] == nil
-        @event.errors.add(:name, "must be given")
-      else
-      end
       render json: @event.errors, status: :unprocessable_entity
     end
   end
